@@ -6,6 +6,7 @@
 #include <cstddef>
 #include <functional>
 #include <numeric>
+#include <ostream>
 
 namespace bb { // namespace bb
 // @brief An N dimension vector
@@ -56,12 +57,12 @@ public:
     }
 
     constexpr Vector& operator+=(const Vector& o) {
-        std::transform(o.begin(), o.end(), begin(), begin(), std::plus<value_type>{});
+        std::transform(begin(), end(), o.begin(), begin(), std::plus<value_type>{});
         return *this;
     }
 
     constexpr Vector& operator-=(const Vector& o) {
-        std::transform(o.begin(), o.end(), begin(), begin(), std::minus<value_type>{});
+        std::transform(begin(), end(), o.begin(), begin(), std::minus<value_type>{});
         return *this;
     }
 
@@ -116,6 +117,14 @@ public:
     container_type::iterator end() { return _v.end(); }
     container_type::const_iterator end() const { return _v.end(); }
     container_type::const_iterator cend() const { return _v.cend(); }
+
+    // other
+
+    friend std::ostream& operator<<(std::ostream& os, const Vector& v) {
+        os << '(';
+        for (const auto& v : v) os << v << ',';
+        return os << ')';
+    }
 
     private:
     container_type _v{};
