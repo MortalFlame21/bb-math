@@ -100,6 +100,14 @@ public:
         return v_new;
     }
 
+    friend constexpr Vector operator*(value_type s, const Vector& v) {
+        return v * s;
+    }
+
+    friend constexpr Vector operator/(value_type s, const Vector& v) {
+        return v / s;
+    }
+
     // comparision
     friend constexpr bool operator==(const Vector& a, const Vector& b) {
         return a._v == b._v;

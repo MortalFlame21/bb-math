@@ -68,4 +68,56 @@ TEST(VectorOperations, Vec3dSubtraction) {
     EXPECT_EQ((V{1.f, 4.f, 7.f} - V{}), (V{1.f, 4.f, 7.f}));
 }
 
+TEST(VectorOperations, Vec2dPropertyAssociativeLaw) {
+    using V = bb::Vec2d;
+    EXPECT_EQ(((V{1.f, 1.f} + V{}) + V{0.f, -1.f}),
+               (V{1.f, 1.f} + (V{} + V{0.f, -1.f})));
+}
 
+TEST(VectorOperations, Vec3dPropertyAssociativeLaw) {
+    using V = bb::Vec3d;
+    EXPECT_EQ(((V{1.f, 1.f, 1.f} + V{}) + V{-1.f, 0.f, -1.f}),
+               (V{1.f, 1.f, 1.f} + (V{} + V{-1.f, 0.f, -1.f})));
+}
+
+TEST(VectorOperations, Vec2dCommutativeLaw) {
+    constexpr bb::Vec2d a{0.391f, 0.123f};
+    constexpr bb::Vec2d b{0.719f, 0.987f};
+    EXPECT_EQ(a + b, b + a);
+}
+
+TEST(VectorOperations, Vec3dCommutativeLaw) {
+    constexpr bb::Vec3d a{0.391f, 0.123f, 1.f};
+    constexpr bb::Vec3d b{0.719f, 0.987f, 0.f};
+    EXPECT_EQ(a + b, b + a);
+}
+
+TEST(VectorOperations, Vec2dAssociativeLawScalar) {
+    constexpr bb::Vec2d v{0.420f, 0.777f};
+    EXPECT_EQ((3.f * 2.f) * v, 3.f * (2.f * v));
+}
+
+TEST(VectorOperations, Vec3dAssociativeLawScalar) {
+    constexpr bb::Vec3d v{0.420f, 0.699f, 0.777f};
+    EXPECT_EQ((3.f * 2.f) * v, 3.f * (2.f * v));
+}
+
+TEST(VectorOperations, Vec2dAssociativeLaw) {
+    constexpr bb::Vec2d v{0.420f, 0.777f};
+    EXPECT_EQ(2.f * v, 2.f * v);
+}
+
+TEST(VectorOperations, Vec3dAssociativeLaw) {
+    constexpr bb::Vec3d v{0.420f, 0.699f, 0.777f};
+    EXPECT_EQ(2.f * v, v * 2.f);
+}
+
+TEST(VectorOperations, Vec2dDistrubutiveLaw) {
+    constexpr bb::Vec2d a{0.391f, 0.123f};
+    EXPECT_EQ((4.f + 1.f) * a, 4.f * a + 1.f * a);
+}
+
+TEST(VectorOperations, Vec3dDistrubutiveLaw) {
+    constexpr bb::Vec3d a{0.391f, 0.123f, 1.f};
+    EXPECT_EQ((4.f + 1.f) * a, 4.f * a + 1.f * a);
+}
